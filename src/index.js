@@ -9,7 +9,7 @@ const genDiff = (firstFile, secondFile) => {
   const secondParseKeys = Object.keys(secondParse);
   const sharedKeys = new Set();
 
-  const reduceFuncFirst = (acc, key) => {
+  const reduceFunc = (acc, key) => {
     if (lodash.has(secondParse, key)) {
       if (firstParse[key] === secondParse[key]) {
         acc.push(`  ${key} : ${firstParse[key]}`);
@@ -24,15 +24,15 @@ const genDiff = (firstFile, secondFile) => {
     return acc;
   };
 
-  const reduceFuncSecond = (acc, key) => {
+  const firstPartResult = firstParseKeys.reduce(reduceFunc, []);
+
+  const result = secondParseKeys.reduce((acc, key) => {
     if (sharedKeys.has(key) === false) {
       acc.push(` + ${key} : ${secondParse[key]}`);
     }
     return acc;
-  };
-
-  const result = secondParseKeys.reduce(reduceFuncSecond,
-    firstParseKeys.reduce(reduceFuncFirst, []));
+  },
+  firstPartResult);
 
   return `{\n ${result.join('\n')} \n}`;
 };
