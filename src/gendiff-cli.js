@@ -1,6 +1,5 @@
 import genDiff from '..';
 
-
 const program = require('commander');
 
 program

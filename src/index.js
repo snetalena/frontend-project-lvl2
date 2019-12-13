@@ -12,14 +12,14 @@ const genDiff = (firstFile, secondFile) => {
   const reduceFunc = (acc, key) => {
     if (lodash.has(secondParse, key)) {
       if (firstParse[key] === secondParse[key]) {
-        acc.push(`  ${key} : ${firstParse[key]}`);
+        acc.push(`    ${key}: ${firstParse[key]}`);
       } else {
-        acc.push(` + ${key} : ${firstParse[key]}`);
-        acc.push(` - ${key} : ${firstParse[key]}`);
+        acc.push(`  + ${key}: ${secondParse[key]}`);
+        acc.push(`  - ${key}: ${firstParse[key]}`);
       }
       sharedKeys.add(key);
     } else {
-      acc.push(` - ${key} : ${firstParse[key]}`);
+      acc.push(`  - ${key}: ${firstParse[key]}`);
     }
     return acc;
   };
@@ -28,13 +28,12 @@ const genDiff = (firstFile, secondFile) => {
 
   const result = secondParseKeys.reduce((acc, key) => {
     if (sharedKeys.has(key) === false) {
-      acc.push(` + ${key} : ${secondParse[key]}`);
+      acc.push(`  + ${key}: ${secondParse[key]}`);
     }
     return acc;
-  },
-  firstPartResult);
+  }, firstPartResult);
 
-  return `{\n ${result.join('\n')} \n}`;
+  return `{\n${result.join('\n')}\n}`;
 };
 
 export default genDiff;
