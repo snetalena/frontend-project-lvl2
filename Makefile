@@ -1,6 +1,14 @@
 publish:
 	npm publish --dry-run
-lint:
-	npx eslint .
+
+install: install-deps
+	npm install
+
+install-deps:
+	npm install --save-dev @babel/core @babel/cli @babel/node @babel/preset-env
+
 test:
-    npm test
+	npm test
+
+make lint:
+	npx eslint .
