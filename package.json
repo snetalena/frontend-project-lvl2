@@ -4,7 +4,7 @@
   "description": "gendiff",
   "main": "dist/index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "build": "NODE_ENV=production babel src --out-dir dist --source-maps inline",
     "prepublishOnly": "npm run build"
   },
@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "commander": "^4.0.1",
+    "js-yaml": "^3.13.1",
     "lodash": "^4.17.15"
   }
 }
