@@ -10,3 +10,12 @@ test('test for genDiff, format json', () => {
   const expectedResult = fs.readFileSync(expectedFile, 'utf-8');
   expect(genDiff(firstFile, secondFile)).toEqual(expectedResult);
 });
+
+test('test for genDiff, format yaml', () => {
+  console.log(__dirname);
+  const firstFile = `${__dirname}/__fixtures__/yaml/before.yml`;
+  const secondFile = `${__dirname}/__fixtures__/yaml/after.yml`;
+  const expectedFile = `${__dirname}/__fixtures__/expected.txt`;
+  const expectedResult = fs.readFileSync(expectedFile, 'utf-8');
+  expect(genDiff(firstFile, secondFile)).toEqual(expectedResult);
+});

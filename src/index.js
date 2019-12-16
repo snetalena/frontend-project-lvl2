@@ -1,10 +1,10 @@
 import lodash from 'lodash';
-
-const fs = require('fs');
+import getParsedFile from './parsers';
 
 const genDiff = (firstFile, secondFile) => {
-  const firstParse = JSON.parse(fs.readFileSync(firstFile));
-  const secondParse = JSON.parse(fs.readFileSync(secondFile));
+  const firstParse = getParsedFile(firstFile);
+  const secondParse = getParsedFile(secondFile);
+
   const firstParseKeys = Object.keys(firstParse);
   const secondParseKeys = Object.keys(secondParse);
   const sharedKeys = new Set();
