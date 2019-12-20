@@ -7,3 +7,5 @@
 [Gendiff for flat JSON] (https://asciinema.org/a/3YdgRqHjF386zhhUMr1EyON1U)
 
 [Gendiff for flat YAML] (https://asciinema.org/a/Iz30t7sVG5IiA8y0stTGh8yeI)
+
+[Gendiff for flat INI] (https://asciinema.org/a/lAHAqXKyWsrx7JrCGcXCrCrVx)
