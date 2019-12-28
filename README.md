@@ -33,4 +33,4 @@ You can choose one of the following format for output result of compare in the c
 
 [Gendiff for recursive JSON, YAML, INI files with plain output](https://asciinema.org/a/0RJYDMjRrON4Ce271fvcoJCUs)
 
-[Gendiff for recursive JSON, YAML, INI files with json output] (https://asciinema.org/a/BrKHHIHSjIad2jivAK6eXxE5l)
+[Gendiff for recursive JSON, YAML, INI files with json output](https://asciinema.org/a/BrKHHIHSjIad2jivAK6eXxE5l)
