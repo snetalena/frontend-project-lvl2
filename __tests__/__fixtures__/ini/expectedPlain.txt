@@ -1,0 +1,6 @@
+Property 'common.group1.baz' was updated. From 'bars' to 'bas'
+Property 'common.setting1' was added with value: 1
+Property 'common.setting2' was removed
+Property 'common.setting6.ops' was added with value: 'vops'
+Property 'group2' was added with value: [complex value]
+Property 'group3' was removed

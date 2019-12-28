@@ -1,0 +1,143 @@
+[
+    {
+        "keyName": "common",
+        "oldValue": {
+            "setting1": "Value 1",
+            "setting2": "200",
+            "setting3": true,
+            "setting6": {
+                "key": "value"
+            }
+        },
+        "newValue": {
+            "follow": false,
+            "setting1": "Value 1",
+            "setting4": "blah blah",
+            "setting3": {
+                "key": "value"
+            },
+            "setting5": {
+                "key5": "value5"
+            },
+            "setting6": {
+                "key": "value",
+                "ops": "vops"
+            }
+        },
+        "difference": "hasChildren",
+        "children": [
+            {
+                "keyName": "follow",
+                "newValue": false,
+                "difference": "added"
+            },
+            {
+                "keyName": "setting1",
+                "oldValue": "Value 1",
+                "newValue": "Value 1",
+                "difference": "unchanged"
+            },
+            {
+                "keyName": "setting2",
+                "oldValue": "200",
+                "difference": "removed"
+            },
+            {
+                "keyName": "setting3",
+                "oldValue": true,
+                "newValue": {
+                    "key": "value"
+                },
+                "difference": "updated"
+            },
+            {
+                "keyName": "setting4",
+                "newValue": "blah blah",
+                "difference": "added"
+            },
+            {
+                "keyName": "setting5",
+                "newValue": {
+                    "key5": "value5"
+                },
+                "difference": "added"
+            },
+            {
+                "keyName": "setting6",
+                "oldValue": {
+                    "key": "value"
+                },
+                "newValue": {
+                    "key": "value",
+                    "ops": "vops"
+                },
+                "difference": "hasChildren",
+                "children": [
+                    {
+                        "keyName": "key",
+                        "oldValue": "value",
+                        "newValue": "value",
+                        "difference": "unchanged"
+                    },
+                    {
+                        "keyName": "ops",
+                        "newValue": "vops",
+                        "difference": "added"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "keyName": "group1",
+        "oldValue": {
+            "baz": "bas",
+            "foo": "bar",
+            "nest": {
+                "key": "value"
+            }
+        },
+        "newValue": {
+            "foo": "bar",
+            "baz": "bars",
+            "nest": "str"
+        },
+        "difference": "hasChildren",
+        "children": [
+            {
+                "keyName": "baz",
+                "oldValue": "bas",
+                "newValue": "bars",
+                "difference": "updated"
+            },
+            {
+                "keyName": "foo",
+                "oldValue": "bar",
+                "newValue": "bar",
+                "difference": "unchanged"
+            },
+            {
+                "keyName": "nest",
+                "oldValue": {
+                    "key": "value"
+                },
+                "newValue": "str",
+                "difference": "updated"
+            }
+        ]
+    },
+    {
+        "keyName": "group2",
+        "oldValue": {
+            "abc": "12345"
+        },
+        "difference": "removed"
+    },
+    {
+        "keyName": "group3",
+        "newValue": {
+            "fee": "100500"
+        },
+        "difference": "added"
+    }
+]
