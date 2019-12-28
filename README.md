@@ -11,17 +11,20 @@ Compares two configuration files and shows a difference.
 For install use command: 
 npm install -g gendiff_snetalena.
 
-Programm has options:
-  .version
-  .description
-  .option('-f, --format)
-  .arguments('<firstConfig> <secondConfig>')
+Use command 'gendiff' and specify as arguments two files to compare.
+
+You can use following options:
+- version
+- description
+- -f, --format
 
 You can choose one of the following format for output result of compare in the console:
 
 - `plain` - output in text plain format
 - `json` - output in json format
 -  default output
+
+For example:
 
 [Gendiff for flat JSON files](https://asciinema.org/a/3YdgRqHjF386zhhUMr1EyON1U)
 
