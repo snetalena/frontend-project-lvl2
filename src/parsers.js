@@ -1,8 +1,5 @@
+import ini from 'ini';
 import yaml from 'js-yaml';
-import path from 'path';
-
-const fs = require('fs');
-const ini = require('ini');
 
 const parsers = {
   '.yml': yaml.safeLoad,
@@ -17,9 +14,6 @@ const getParser = (ext) => {
   throw new Error(`Can't read file format ${ext}`);
 };
 
-const getParsedFile = (file) => {
-  const ext = path.extname(file);
-  return getParser(ext)(fs.readFileSync(file, 'utf-8'));
-};
+const getParsedData = (data, ext) => getParser(ext)(data);
 
-export default getParsedFile;
+export default getParsedData;

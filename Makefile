@@ -13,5 +13,5 @@ test:
 test-coverage:
 	npm test -- --coverage
 
-make lint:
+lint:
 	npx eslint .

@@ -1,5 +1,7 @@
+import fs from 'fs';
 import lodash from 'lodash';
-import getParsedFile from './parsers';
+import path from 'path';
+import getParsedData from './parsers';
 import getRender from './formatters';
 
 const buildNode = (keyName, oldValue, newValue, difference, children) => ({
@@ -37,9 +39,9 @@ const parse = (firstParse, secondParse) => {
   return ast.slice().sort((a, b) => (a.keyName < b.keyName ? -1 : 1));
 };
 
-const genDiff = (firstFile, secondFile, format) => {
-  const firstParse = getParsedFile(firstFile);
-  const secondParse = getParsedFile(secondFile);
+const genDiff = (firstFileName, secondFileName, format) => {
+  const firstParse = getParsedData(fs.readFileSync(firstFileName, 'utf-8'), path.extname(firstFileName));
+  const secondParse = getParsedData(fs.readFileSync(secondFileName, 'utf-8'), path.extname(secondFileName));
   const ast = parse(firstParse, secondParse);
   return getRender(format)(ast);
 };
