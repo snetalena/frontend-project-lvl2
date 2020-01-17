@@ -18,23 +18,23 @@ const parse = (firstParse, secondParse) => {
   const firstParseKeys = Object.keys(firstParse);
   const secondParseKeys = Object.keys(secondParse);
   const unionKeys = lodash.union(firstParseKeys, secondParseKeys);
-  const ast = unionKeys.reduce((acc, key) => {
+  const ast = unionKeys.map((key) => {
     const firstValue = firstParse[key];
     const secondValue = secondParse[key];
     if (!lodash.has(firstParse, key)) {
-      return [...acc, buildNode(key, firstValue, secondValue, 'added')];
+      return buildNode(key, firstValue, secondValue, 'added');
     }
     if (!lodash.has(secondParse, key)) {
-      return [...acc, buildNode(key, firstValue, secondValue, 'removed')];
+      return buildNode(key, firstValue, secondValue, 'removed');
     }
     if (lodash.isObject(firstValue) && lodash.isObject(secondValue)) {
-      return [...acc, buildNode(key, firstValue, secondValue, 'hasChildren', parse(firstValue, secondValue))];
+      return buildNode(key, firstValue, secondValue, 'hasChildren', parse(firstValue, secondValue));
     }
     if (firstValue === secondValue) {
-      return [...acc, buildNode(key, firstValue, secondValue, 'unchanged')];
+      return buildNode(key, firstValue, secondValue, 'unchanged');
     }
-    return [...acc, buildNode(key, firstValue, secondValue, 'updated')];
-  }, []);
+    return buildNode(key, firstValue, secondValue, 'updated');
+  });
 
   return ast.slice().sort((a, b) => (a.keyName < b.keyName ? -1 : 1));
 };

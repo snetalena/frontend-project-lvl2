@@ -1,4 +1,4 @@
-import renderDefault from './renderDefault';
+import renderIdent from './renderIdent';
 import renderPlain from './renderPlain';
 import renderJson from './renderJson';
 
@@ -9,7 +9,7 @@ const getRender = (format) => {
     case 'json':
       return renderJson;
     default:
-      return renderDefault;
+      return renderIdent;
   }
 };
 

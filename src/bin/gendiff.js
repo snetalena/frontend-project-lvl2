@@ -1,3 +1,4 @@
 #!/usr/bin/env node
+import gendiffCli from '../gendiff-cli';
 
-import '../gendiff-cli';
+gendiffCli();

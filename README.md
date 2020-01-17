@@ -22,7 +22,7 @@ You can choose one of the following format for output result of compare in the c
 
 - `plain` - output in text plain format
 - `json` - output in json format
--  default output
+- `ident` - idented output (default)
 
 For example:
 

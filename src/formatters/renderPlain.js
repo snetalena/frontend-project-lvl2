@@ -7,24 +7,30 @@ const valueToString = (value) => {
   return typeof value === 'string' ? `'${value}'` : value;
 };
 
-const buildLine = {
-  added: (node, propertyName) => `Property '${propertyName}' was added with value: ${valueToString(node.newValue)}`,
-  removed: (node, propertyName) => `Property '${propertyName}' was removed`,
-  updated: (node, propertyName) => `Property '${propertyName}' was updated. From ${valueToString(node.oldValue)} to ${valueToString(node.newValue)}`,
-};
 
-const renderPlain = (ast, propertyNames = []) => {
-  const redusefunc = (acc, node) => {
-    const pnames = [...propertyNames, node.keyName];
-    if (node.children) {
-      return [...acc, renderPlain(node.children, pnames)];
-    }
-    return node.difference === 'unchanged'
-      ? acc
-      : [...acc, buildLine[node.difference](node, pnames.join('.'))];
+const renderPlain = (ast) => {
+  const iter = (tree, propertyNames) => {
+    const redusefunc = (acc, node) => {
+      const pnames = [...propertyNames, node.keyName];
+      switch (node.difference) {
+        case 'added':
+          return [...acc, `Property '${pnames.join('.')}' was added with value: ${valueToString(node.newValue)}`];
+        case 'removed':
+          return [...acc, `Property '${pnames.join('.')}' was removed`];
+        case 'updated':
+          return [...acc, `Property '${pnames.join('.')}' was updated. From ${valueToString(node.oldValue)} to ${valueToString(node.newValue)}`];
+        case 'unchanged':
+          return acc;
+        case 'hasChildren':
+          return [...acc, iter(node.children, pnames)];
+        default:
+          throw new Error(`Unknown type of node ${node.difference}`);
+      }
+    };
+    const result = tree.reduce(redusefunc, []);
+    return result.join('\n');
   };
-  const result = ast.reduce(redusefunc, []);
-  return result.join('\n');
+  return iter(ast, []);
 };
 
 export default renderPlain;

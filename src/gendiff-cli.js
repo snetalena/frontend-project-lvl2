@@ -1,6 +1,5 @@
+import program from 'commander';
 import genDiff from '.';
-
-const program = require('commander');
 
 program
   .version('1.0.0')
@@ -11,4 +10,4 @@ program
     console.log(genDiff(firstConfig, secondConfig, program.format));
   });
 
-program.parse(process.argv);
+export default () => program.parse(process.argv);

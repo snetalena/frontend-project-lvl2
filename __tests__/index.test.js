@@ -1,44 +1,29 @@
 import fs from 'fs';
-import genDiff from '../src/index';
+import genDiff from '../src';
+
+const fixturesDir = `${__dirname}/__fixtures__`;
+const getTestFileNames = (format) => [`${fixturesDir}/${format}/before.${format}`, `${fixturesDir}/${format}/after.${format}`];
+
 
 describe.each([
   ['json'],
   ['yml'],
   ['ini'],
-])('test genDiff default', (format) => {
-  test(`${format}`, () => {
-    const firstFileName = `${__dirname}/__fixtures__/${format}/before.${format}`;
-    const secondFileName = `${__dirname}/__fixtures__/${format}/after.${format}`;
-    const expectedFileName = `${__dirname}/__fixtures__/expected.txt`;
-    const expectedResult = fs.readFileSync(expectedFileName, 'utf-8');
+])('test genDiff', (format) => {
+  const [firstFileName, secondFileName] = getTestFileNames(format);
+
+  test(`${format} -> default`, () => {
+    const expectedResult = fs.readFileSync(`${fixturesDir}/expected.txt`, 'utf-8');
     expect(genDiff(firstFileName, secondFileName)).toEqual(expectedResult);
   });
-});
 
-describe.each([
-  ['json'],
-  ['yml'],
-  ['ini'],
-])('test genDiff json', (format) => {
-  test(`${format}`, () => {
-    const firstFileName = `${__dirname}/__fixtures__/${format}/before.${format}`;
-    const secondFileName = `${__dirname}/__fixtures__/${format}/after.${format}`;
-    const expectedFileName = `${__dirname}/__fixtures__/${format}/expectedJson.json`;
-    const expectedResult = fs.readFileSync(expectedFileName, 'utf-8');
-    expect(genDiff(firstFileName, secondFileName, 'json')).toEqual(expectedResult);
-  });
-});
-
-describe.each([
-  ['json'],
-  ['yml'],
-  ['ini'],
-])('test genDiff plain', (format) => {
-  test(`${format}`, () => {
-    const firstFileName = `${__dirname}/__fixtures__/${format}/beforePlain.${format}`;
-    const secondFileName = `${__dirname}/__fixtures__/${format}/afterPlain.${format}`;
-    const expectedFileName = `${__dirname}/__fixtures__/${format}/expectedPlain.txt`;
-    const expectedResult = fs.readFileSync(expectedFileName, 'utf-8');
+  test(`${format} -> plain`, () => {
+    const expectedResult = fs.readFileSync(`${fixturesDir}/${format}/expectedPlain.txt`, 'utf-8');
     expect(genDiff(firstFileName, secondFileName, 'plain')).toEqual(expectedResult);
+  });
+
+  test(`${format} -> json`, () => {
+    const expectedResult = fs.readFileSync(`${fixturesDir}/${format}/expectedJson.json`, 'utf-8');
+    expect(genDiff(firstFileName, secondFileName, 'json')).toEqual(expectedResult);
   });
 });

@@ -11,7 +11,7 @@ const getParser = (ext) => {
   if (parsers[ext]) {
     return parsers[ext];
   }
-  throw new Error(`Can't read file format ${ext}`);
+  throw new Error(`Can't decode format ${ext}`);
 };
 
 const getParsedData = (data, ext) => getParser(ext)(data);
