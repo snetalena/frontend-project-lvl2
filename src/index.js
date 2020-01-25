@@ -8,7 +8,7 @@ const buildNode = (keyName, oldValue, newValue, difference, children) => ({
   keyName, oldValue, newValue, difference, children,
 });
 
-const parse = (firstParse, secondParse) => {
+const buildTree = (firstParse, secondParse) => {
   /*
   [
    {"keyName":"group3","oldValue":{"fee":100500},"difference":"removed"},
@@ -28,7 +28,7 @@ const parse = (firstParse, secondParse) => {
       return buildNode(key, firstValue, secondValue, 'removed');
     }
     if (lodash.isObject(firstValue) && lodash.isObject(secondValue)) {
-      return buildNode(key, firstValue, secondValue, 'hasChildren', parse(firstValue, secondValue));
+      return buildNode(key, firstValue, secondValue, 'hasChildren', buildTree(firstValue, secondValue));
     }
     if (firstValue === secondValue) {
       return buildNode(key, firstValue, secondValue, 'unchanged');
@@ -39,11 +39,13 @@ const parse = (firstParse, secondParse) => {
   return ast.slice().sort((a, b) => (a.keyName < b.keyName ? -1 : 1));
 };
 
-const genDiff = (firstFileName, secondFileName, format) => {
-  const firstParse = getParsedData(fs.readFileSync(firstFileName, 'utf-8'), path.extname(firstFileName));
-  const secondParse = getParsedData(fs.readFileSync(secondFileName, 'utf-8'), path.extname(secondFileName));
-  const ast = parse(firstParse, secondParse);
-  return getRender(format)(ast);
+const getFileType = (fileName) => path.extname(fileName).slice(1);
+
+const genDiff = (firstFileName, secondFileName, outputFormat) => {
+  const firstParse = getParsedData(fs.readFileSync(firstFileName, 'utf-8'), getFileType(firstFileName));
+  const secondParse = getParsedData(fs.readFileSync(secondFileName, 'utf-8'), getFileType(secondFileName));
+  const ast = buildTree(firstParse, secondParse);
+  return getRender(outputFormat)(ast);
 };
 
 export default genDiff;

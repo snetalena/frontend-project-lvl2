@@ -7,28 +7,20 @@ const valueToString = (value) => {
   return typeof value === 'string' ? `'${value}'` : value;
 };
 
-
 const renderPlain = (ast) => {
   const iter = (tree, propertyNames) => {
-    const redusefunc = (acc, node) => {
-      const pnames = [...propertyNames, node.keyName];
-      switch (node.difference) {
-        case 'added':
-          return [...acc, `Property '${pnames.join('.')}' was added with value: ${valueToString(node.newValue)}`];
-        case 'removed':
-          return [...acc, `Property '${pnames.join('.')}' was removed`];
-        case 'updated':
-          return [...acc, `Property '${pnames.join('.')}' was updated. From ${valueToString(node.oldValue)} to ${valueToString(node.newValue)}`];
-        case 'unchanged':
-          return acc;
-        case 'hasChildren':
-          return [...acc, iter(node.children, pnames)];
-        default:
-          throw new Error(`Unknown type of node ${node.difference}`);
-      }
+    const buildLine = {
+      added: (node, propertyName) => `Property '${propertyName.length > 1 ? propertyName.join('.') : propertyName}' was added with value: ${valueToString(node.newValue)}`,
+      removed: (node, propertyName) => `Property '${propertyName.length > 1 ? propertyName.join('.') : propertyName}' was removed`,
+      updated: (node, propertyName) => `Property '${propertyName.length > 1 ? propertyName.join('.') : propertyName}' was updated. From ${valueToString(node.oldValue)} to ${valueToString(node.newValue)}`,
+      hasChildren: (node, propertyName) => iter(node.children, propertyName),
+      unchanged: () => '',
     };
-    const result = tree.reduce(redusefunc, []);
-    return result.join('\n');
+    const result = tree.map((node) => {
+      const pnames = [...propertyNames, node.keyName];
+      return buildLine[node.difference](node, pnames);
+    });
+    return result.filter((item) => item !== '').join('\n');
   };
   return iter(ast, []);
 };

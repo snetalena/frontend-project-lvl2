@@ -2,7 +2,7 @@ import fs from 'fs';
 import genDiff from '../src';
 
 const fixturesDir = `${__dirname}/__fixtures__`;
-const getTestFileNames = (format) => [`${fixturesDir}/${format}/before.${format}`, `${fixturesDir}/${format}/after.${format}`];
+const getTestFileName = (format, name) => `${fixturesDir}/${format}/${name}.${format}`;
 
 
 describe.each([
@@ -10,7 +10,8 @@ describe.each([
   ['yml'],
   ['ini'],
 ])('test genDiff', (format) => {
-  const [firstFileName, secondFileName] = getTestFileNames(format);
+  const firstFileName = getTestFileName(format, 'before');
+  const secondFileName = getTestFileName(format, 'after');
 
   test(`${format} -> default`, () => {
     const expectedResult = fs.readFileSync(`${fixturesDir}/expected.txt`, 'utf-8');
